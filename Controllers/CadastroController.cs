@@ -1,5 +1,5 @@
+using APICadastro.Buisness;
 using APICadastro.Models;
-using APICadastro.Models.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APICadastro.Controllers
@@ -15,12 +15,12 @@ namespace APICadastro.Controllers
         private readonly ILogger<CadastroController> _logger;
 
         //Serviço de dados
-        private IPersonService _personService;
+        private IPersonBuisness _personBuisness;
 
-        public CadastroController(ILogger<CadastroController> logger, IPersonService personService)
+        public CadastroController(ILogger<CadastroController> logger, IPersonBuisness personBusiness)
         {
             _logger = logger;
-            _personService = personService;
+            _personBuisness = personBusiness;
         }
 
         [HttpGet]// Retorna todos os dados
@@ -28,7 +28,7 @@ namespace APICadastro.Controllers
         {
             try
             {
-                var pessoas = _personService.FindAll();
+                var pessoas = _personBuisness.FindAll();
                 return Ok(pessoas);
             }
             catch (Exception ex)
@@ -39,7 +39,7 @@ namespace APICadastro.Controllers
          [HttpGet("{ID}")]// Retorna apenas um dado
         public IActionResult Get(long ID)
         {
-            var pessoa = _personService.FindByID(ID);
+            var pessoa = _personBuisness.FindByID(ID);
             if (pessoa == null)
             {
                 return NotFound();
@@ -52,14 +52,14 @@ namespace APICadastro.Controllers
         {
             if (pessoa == null) return BadRequest();
 
-            return Ok(_personService.Create(pessoa));
+            return Ok(_personBuisness.Create(pessoa));
         }
 
         [HttpPut]// Atualiza um dado
         public IActionResult Put([FromBody] Pessoa pessoa)
         {
             if (pessoa == null) return BadRequest();
-            return Ok(_personService.Update(pessoa));
+            return Ok(_personBuisness.Update(pessoa));
         }
 
         [HttpDelete("{ID}")]// Deleta um dado
@@ -67,7 +67,7 @@ namespace APICadastro.Controllers
         {
             if (ID <= 0) return BadRequest();
             
-            _personService.Delete(ID);
+            _personBuisness.Delete(ID);
             return NoContent();
         }
     }

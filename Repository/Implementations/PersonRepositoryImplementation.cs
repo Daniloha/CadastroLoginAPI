@@ -4,16 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using APICadastro.Models.Context;
 using Microsoft.EntityFrameworkCore;
+using APICadastro.Repository;
+using APICadastro.Models;
 
-namespace APICadastro.Models.Services.Implementations
+namespace APICadastro.Repository.Implementations
 {
-    public class PersonServiceImplementation : IPersonService
+    public class PersonRepositoryImplementation : IPersonRepository
     {
         // = new MySQLContext();
         
         private MySQLContext _context;
 
-        public PersonServiceImplementation( MySQLContext context)
+        public PersonRepositoryImplementation( MySQLContext context)
         {
             _context = context;
         }
@@ -84,7 +86,7 @@ namespace APICadastro.Models.Services.Implementations
             return pessoa;
         }
 
-        private bool Exists(long iD)
+        public bool Exists(long iD)
         {
             return _context.Pessoas.Any(p => p.ID.Equals(iD));
         }

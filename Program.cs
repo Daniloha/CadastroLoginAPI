@@ -1,6 +1,9 @@
+using APICadastro.Buisness;
+using APICadastro.Buisness.Implementations;
+using APICadastro.Models;
 using APICadastro.Models.Context;
-using APICadastro.Models.Services;
-using APICadastro.Models.Services.Implementations;
+using APICadastro.Repository;
+using APICadastro.Repository.Implementations;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -8,7 +11,8 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Registro do serviço IPersonService
-builder.Services.AddScoped<IPersonService, PersonServiceImplementation>();
+builder.Services.AddScoped<IPersonBuisness, PersonBuisnessImplementation>();
+builder.Services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
 
 // Adiciona os controladores ao container
 builder.Services.AddControllers();

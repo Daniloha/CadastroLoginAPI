@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using APICadastro.Models;
 
 
-namespace APICadastro.Models.Services
+namespace APICadastro.Buisness
 {
-    public interface IPersonService
+    public interface IPersonBuisness
     {
         Pessoa Create(Pessoa pessoa);
         Pessoa FindByID(long id);
