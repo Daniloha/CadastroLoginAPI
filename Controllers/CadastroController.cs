@@ -4,12 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace APICadastro.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
+
+    
+    [ApiVersion("1.0")]// Versão da API
+    [ApiController]// Controlador
+    [Route("api/[controller]/v{version:apiVersion}")]// Rota
     public class CadastroController : ControllerBase
     {
-       
+       //Logger de logs de erros
         private readonly ILogger<CadastroController> _logger;
+
+        //Serviço de dados
         private IPersonService _personService;
 
         public CadastroController(ILogger<CadastroController> logger, IPersonService personService)
@@ -18,7 +23,7 @@ namespace APICadastro.Controllers
             _personService = personService;
         }
 
-        [HttpGet]
+        [HttpGet]// Retorna todos os dados
         public IActionResult Get()
         {
             try
@@ -31,7 +36,7 @@ namespace APICadastro.Controllers
                 return StatusCode(500, $"Erro ao buscar dados: {ex.Message}");
             }
         }
-         [HttpGet("{ID}")]
+         [HttpGet("{ID}")]// Retorna apenas um dado
         public IActionResult Get(long ID)
         {
             var pessoa = _personService.FindByID(ID);
@@ -42,7 +47,7 @@ namespace APICadastro.Controllers
             return Ok(pessoa);
         }
 
-        [HttpPost]
+        [HttpPost]// Cria um novo dado
         public IActionResult Post([FromBody] Pessoa pessoa)
         {
             if (pessoa == null) return BadRequest();
@@ -50,14 +55,14 @@ namespace APICadastro.Controllers
             return Ok(_personService.Create(pessoa));
         }
 
-        [HttpPut]
+        [HttpPut]// Atualiza um dado
         public IActionResult Put([FromBody] Pessoa pessoa)
         {
             if (pessoa == null) return BadRequest();
             return Ok(_personService.Update(pessoa));
         }
 
-        [HttpDelete("{ID}")]
+        [HttpDelete("{ID}")]// Deleta um dado
         public IActionResult Delete(long ID)
         {
             if (ID <= 0) return BadRequest();

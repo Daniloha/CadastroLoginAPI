@@ -9,6 +9,8 @@ namespace APICadastro.Models.Services.Implementations
 {
     public class PersonServiceImplementation : IPersonService
     {
+        // = new MySQLContext();
+        
         private MySQLContext _context;
 
         public PersonServiceImplementation( MySQLContext context)

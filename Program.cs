@@ -3,6 +3,8 @@ using APICadastro.Models.Services;
 using APICadastro.Models.Services.Implementations;
 using Microsoft.EntityFrameworkCore;
 
+
+// Criação da aplicação
 var builder = WebApplication.CreateBuilder(args);
 
 // Registro do serviço IPersonService
@@ -24,13 +26,19 @@ builder.Services.AddDbContext<MySQLContext>(options =>
     .EnableSensitiveDataLogging() // Para logs detalhados
     .EnableDetailedErrors());
 
+// Versionamento da API    
+builder.Services.AddApiVersioning();
+
 var app = builder.Build();
 
 // Configuração do pipeline de requisição HTTP
 app.UseHttpsRedirection();
 
+// Configuração dos middlewares
 app.UseAuthorization();
 
+// Configuração dos controladores
 app.MapControllers();
 
+// Inicia a aplicação
 app.Run();

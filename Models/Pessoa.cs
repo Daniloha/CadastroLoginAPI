@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace APICadastro.Models
 {
-    [Table("pessoas")]
+    [Table("pessoas")]// Nome da tabela
     public class Pessoa
     {
         public long ID { get; set; }
