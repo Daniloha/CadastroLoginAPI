@@ -1,0 +1,6 @@
+@APICadastro_HostAddress = http://localhost:5288
+
+GET {{APICadastro_HostAddress}}/cadastro/
+Accept: application/json
+
+###
